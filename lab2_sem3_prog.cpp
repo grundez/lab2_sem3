@@ -7,6 +7,8 @@
 using namespace std;
 
 int i;
+int activity_counts=0;
+
 struct people {
     char first_name[20];
     char second_name[20];
@@ -16,48 +18,57 @@ struct finance_status {
     double money;
 };
 
-struct copmany_name {
-    char title[50];
-};
-
 struct company_founding_date {
     int day;
     int month;
     int year;
 };
 
+struct company_activity {
+    char activity[50];
+};
+
 struct company {
-    struct copmany_name company_name;   //название компании
-    struct people human[MAX];           //сотрудники компании
-    struct finance_status finance;      //финансы компании
-    struct company_founding_date date;  //дата основания компании
-    char activity[20];                  //деятельность компании(например, строительство итд)
+    char company_name[MAX/2];               //название компании
+    struct people human[MAX];               //сотрудники компании
+    struct finance_status finance;          //финансы компании
+    struct company_founding_date date;      //дата основания компании
+    struct company_activity activity[20];   //деятельность компании(услуги итд)
 }company;
 
         //контсрукторы ДОДЕЛАТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 void set_company_name(char title[]) {
+    strcpy(company.company_name, title);
 }
-void set_company(struct copmany_name a, struct people b, struct finance_status c, struct company_founding_date d, char company_activity) {
-}
+/*void set_company(char name[], struct people human, struct finance_status finance, struct company_founding_date date, struct company_activity activity) {
+    strcpy(company.company_name, name);
+    strcpy(company.human, name);
+}*/
 void set_human(char name[], char surname[]) {
+    strcpy(company.human->first_name, name);
+    strcpy(company.human->second_name, surname);
 }
 void set_company_finance(double money) {
     company.finance.money = money;
 }
 void set_company_founding_date(int day, int month, int year) {
+    company.date.day = day;
+    company.date.month = month;
+    company.date.year = year;
 }
 void set_company_activity(char activity[]) {
+    strcpy(company.activity[activity_counts].activity, activity);
+    activity_counts++;
 }
 
         
         //функции ввода объектов через консоль
-void input_company_name(struct copmany_name a) {
-    printf("\nНазвание компании: "); gets_s(a.title);
-    strcpy(company.company_name.title, a.title);
+void input_company_name() {
+    printf("\nНазвание компании: "); gets_s(company.company_name);
 }
 void input_human(struct people a) {
     int f;
-    printf("Введите данные сотрудника\nЧтобы закончить - нажмите ESC");
+    printf("Введите данные сотрудника\nВвести следующего - любая кнопка\nЧтобы закончить - нажмите ESC");
     i = 0;
     do {
         f = 1;
@@ -83,14 +94,14 @@ void input_company_founding_date(struct company_founding_date a) {
     printf("Месяц: "); scanf_s("%d", &a.month);
     printf("Год: "); scanf_s("%d", &a.year);
 }
-void input_company_activity(struct company a) {
+void input_company_activity(struct company_activity a) {
     printf("\nДеятельность компании: "); gets_s(a.activity);
 }
 
         
         //функции вывода объектов через консоль 
-void output_company_name(struct copmany_name a) {
-    printf("\nНазвание компании: "); printf("%s", a.title);
+void output_company_name() {
+    printf("\nНазвание компании: "); printf("%s", company.company_name);
 }
 void output_human(struct people a[]) {
     for (int k = 0; k < i; k++) {
@@ -108,6 +119,9 @@ void output_company_activity(struct company a) {
     printf("\nДеятельность компании: "); printf("%s", a.activity);
 }
 
+
+        //функции для помощи в работе с структурами
+void finance_
 
 int main()
 {
